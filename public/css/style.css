@@ -1,0 +1,129 @@
+ body{
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+   
+} 
+
+
+
+.container{
+    flex:1;
+}
+/* navbar */
+.navbar{
+    height:5rem;
+    background-color: white;
+    margin-bottom:0.7rem;
+}
+
+.fa-plane{
+    color:rgb(6, 103, 178);
+}
+
+.fa-earth-americas{
+   color:#0000A0 ;
+   
+
+}
+
+.navbar-brand{
+    color:#4a4aef;
+    font-weight:bold;
+}
+.nav-link{
+    color:#1d539a !important;
+}
+
+/* footer */
+
+.f-info-links a{
+    text-decoration: none;
+    color:black;
+   
+}
+
+.f-info-links a:hover{
+    text-decoration: underline;  
+}
+.f-info-links,.f-info-socials,.f-info-brand{
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+}
+
+
+
+.f-info-socials i{
+    margin-right:1rem;
+    font-size:1.2rem;
+}
+
+.f-info{
+    text-align:center;
+    height:8rem;
+    background-color:#ebebeb;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:space-evenly;
+    margin-top:2rem;
+    }
+
+/* cards */
+.listing-card{
+    margin-bottom:2rem ;
+    border:none;
+}
+
+.card-img-top{
+    border-radius:1rem;
+    width:100%;
+    object-fit: cover;
+    
+}
+.card-body{
+    padding:0;
+}
+ .card a{
+    text-decoration: none !important;
+    color:#222222;
+}
+
+.card-text{
+    line-height:1.5rem;
+} 
+
+.listing-link{
+    text-decoration: none;
+}
+
+/* card overlay effect */
+.card-img-overlay{
+    opacity:0;
+}
+
+.card-img-overlay:hover{
+    opacity:0.1;
+    background-color: white;
+}
+
+.add-btn,.edit-btn,.delete-btn{
+    background-color:#0000A0 ;
+    border:none !important;
+}
+
+.delete-btn{
+    background-color: rgb(227, 21, 21);
+    border:none !important;
+}
+
+/* show page */
+
+.show-img{
+    height:30vh;
+    
+}
