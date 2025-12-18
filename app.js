@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV!="production"){
+require('dotenv').config();
+}
+
+
 const express=require("express");
 const app=express();
 const path=require("path");
@@ -5,14 +10,25 @@ const methodOverride=require("method-override");
 const engine=require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js");
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
 const session=require("express-session");
+const MongoStore = require('connect-mongo').default;
 const flash=require("connect-flash");
 const passport=require("passport");
 const localStrategy=require("passport-local");
 const User=require("./models/user.js")
 
-const listings=require("./routes/listing.js");
-const reviews=require("./routes/review.js");
+const listingRouter=require("./routes/listing.js");
+const reviewRouter=require("./routes/review.js");
+const userRouter=require("./routes/user.js");
+
+const dbUrl=process.env.ATLASDB_URL;
+
+main().then((res)=>{console.log("connection successful")}).catch(err => console.log(err));
+async function main() {
+  await mongoose.connect(dbUrl);
+}
+
 
 app.engine("ejs", engine);
 app.set("view engine","ejs");
@@ -21,14 +37,21 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"public")));
 
+const store=MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:process.env.SECRET,
 
-main().then((res)=>{console.log("connection successful")}).catch(err => console.log(err));
+    },
+    touchAfter:24*3600
+});
 
-async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/GO-WANDER');
-}
+store.on("error", (err) => {
+  console.log("SESSION STORE ERROR:", err);
+});
 
 const sessionOptions={
+    store,
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
@@ -39,9 +62,12 @@ const sessionOptions={
     }
 };
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
+
+
+
+
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -56,14 +82,20 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
+    res.locals.currUser=req.user;
     next();
 });
 
+
+
 //listings
-app.use("/listings",listings)
+app.use("/listings",listingRouter)
 
 //reviews
-app.use("/listings/:id/reviews",reviews)
+app.use("/listings/:id/reviews",reviewRouter)
+
+//users
+app.use("/",userRouter);
 
 app.all(/.*/, (req,res,next)=>{
     next(new ExpressError(404,"----Page not found----"));
