@@ -109,3 +109,7 @@ app.use((err,req,res,next)=>{
 app.listen(8080,(req,res)=>{
     console.log("listening to port:8080");
 });
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
