@@ -1,5 +1,5 @@
 const express=require("express");
-const router=express.Router();
+const router=express.Router({mergeParams:true});
 const Listing=require("../models/listings.js");
 const wrapAsync=require("../utils/wrapAsync.js");
 const { isLoggedIn ,isOwner,validateListing} = require("../middleware.js");

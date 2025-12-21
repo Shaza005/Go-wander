@@ -1,7 +1,9 @@
 const express=require("express");
-const router=express.Router();
+const router=express.Router({mergeParams:true});
+const User=require("../models/user.js");
 const passport=require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
+const wrapAsync=require("../utils/wrapAsync.js");
 
 const userController=require("../controllers/users.js")
 
@@ -19,7 +21,7 @@ router.post(
         failureRedirect:"/login",
         failureFlash:true
     }),
-    userController.login);
+    wrapAsync(userController.login));
 
 router.get("/logout",userController.logout);
 module.exports=router;
