@@ -187,7 +187,7 @@ const sessionOptions = {
     store,
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -221,9 +221,8 @@ app.use("/", userRouter);
 
 // ---------------- ERROR HANDLING ----------------
 app.all(/.*/, (req, res, next) => {
-   res.redirect("/listings");
+    next(new ExpressError(404, "Page not found"));
 });
-
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "something went wrong" } = err;
     res.status(statusCode).render("error.ejs", { message });
