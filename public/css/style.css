@@ -35,6 +35,8 @@
 }
 .nav-link{
     color:#1d539a !important;
+    background-color: white;
+    z-index:1;
 }
 
 /* footer */
