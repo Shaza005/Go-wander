@@ -220,11 +220,11 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
 // ---------------- ERROR HANDLING ----------------
-app.all(/.*/, (req, res, next) => {
+app.all(/.*/, (req,res) => {
    res.redirect("/listings");
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req,res) => {
     let { statusCode = 500, message = "something went wrong" } = err;
     res.status(statusCode).render("error.ejs", { message });
 });

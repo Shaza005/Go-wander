@@ -1,7 +1,7 @@
 const User=require("../models/user.js");
 
 
-module.exports.renderSignupForm=(req,res,next)=>{
+module.exports.renderSignupForm=(req,res)=>{
     res.render("users/signup.ejs");
 };
 
@@ -29,11 +29,11 @@ module.exports.signup=async(req,res,next)=>{
 };
 
 
-module.exports.renderLoginForm=(req,res,next)=>{
+module.exports.renderLoginForm=(req,res)=>{
     res.render("users/login.ejs");
 };
 
-module.exports.login=async(req,res,next)=>{
+module.exports.login=async(req,res)=>{
     req.flash("success","Welcome Back to GO-WANDER");
     let redirectUrl=res.locals.redirectUrl || "/listings"
     res.redirect(redirectUrl);
