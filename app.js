@@ -257,8 +257,8 @@ app.use("/", userRouter);
 
 // ---------------- ERROR HANDLING ----------------
 
-app.all(/.*/, (req, res) => {
-    res.redirect("/listings");
+app.all("*", (req, res) => {
+    res.status(404).send("Page not found");
 });
 
 app.use((err, req, res, next) => {
