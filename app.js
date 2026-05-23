@@ -255,6 +255,11 @@ app.use("/listings/:id/reviews", reviewRouter);
 
 app.use("/", userRouter);
 
+app.get("/", (req, res) => {
+    res.send("Server is working 🚀");
+});
+
+
 // ---------------- ERROR HANDLING ----------------
 
 app.all("*", (req, res) => {

@@ -17,14 +17,12 @@ module.exports.signup = async (req, res) => {
         const registeredUser = await User.register(newUser, password);
 
         req.login(registeredUser, (err) => {
-
             if (err) {
                 console.log("LOGIN ERROR:", err);
-                return res.send(err.message);
+                return next(err);
             }
 
             req.flash("success", "Welcome to GO-WANDER");
-
             res.redirect("/listings");
         });
 
@@ -32,7 +30,8 @@ module.exports.signup = async (req, res) => {
 
         console.log("SIGNUP ERROR:", e);
 
-        return res.send(e.message);
+        req.flash("error", e.message);
+        res.redirect("/signup");
     }
 };
 
