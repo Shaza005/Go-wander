@@ -152,7 +152,9 @@ const dbUrl = process.env.ATLASDB_URL;
 
 // ---------------- DATABASE ----------------
 main()
-    .then(() => { console.log("connection successful"); })
+    .then(() => {
+        console.log("connection successful");
+    })
     .catch(err => console.log(err));
 
 async function main() {
@@ -161,20 +163,32 @@ async function main() {
 
 // ---------------- VIEW ENGINE ----------------
 app.engine("ejs", engine);
+
 app.set("view engine", "ejs");
+
 app.set("views", path.join(__dirname, "views"));
 
 // ---------------- BASIC MIDDLEWARE ----------------
 app.use(methodOverride("_method"));
+
 app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static(path.join(__dirname, "public")));
 
+// ---------------- TRUST PROXY ----------------
+// Important for Render deployment
+
+app.set("trust proxy", 1);
+
+// ---------------- SESSION STORE ----------------
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
+
     crypto: {
         secret: process.env.SECRET,
     },
+
     touchAfter: 24 * 3600
 });
 
@@ -183,55 +197,83 @@ store.on("error", (err) => {
 });
 
 // ---------------- SESSION ----------------
+
 const sessionOptions = {
     store,
+
     secret: process.env.SECRET,
+
     resave: false,
+
     saveUninitialized: false,
+
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true
+
+        httpOnly: true,
+
+        secure: process.env.NODE_ENV === "production"
     }
 };
 
 app.use(session(sessionOptions));
+
 app.use(flash());
 
 // ---------------- PASSPORT ----------------
+
 app.use(passport.initialize());
+
 app.use(passport.session());
 
 passport.use(new localStrategy(User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
+
 passport.deserializeUser(User.deserializeUser());
 
 // ---------------- LOCALS ----------------
+
 app.use((req, res, next) => {
+
     res.locals.success = req.flash("success");
+
     res.locals.error = req.flash("error");
+
     res.locals.currUser = req.user;
+
     next();
 });
 
 // ---------------- ROUTES ----------------
+
 app.use("/listings", listingRouter);
+
 app.use("/listings/:id/reviews", reviewRouter);
+
 app.use("/", userRouter);
 
 // ---------------- ERROR HANDLING ----------------
-app.all(/.*/, (req,res) => {
-   res.redirect("/listings");
+
+app.all(/.*/, (req, res) => {
+    res.redirect("/listings");
 });
 
-app.use((err, req,res,next) => {
+app.use((err, req, res, next) => {
+
+    console.log(err);
+
     let { statusCode = 500, message = "something went wrong" } = err;
+
     res.status(statusCode).render("error.ejs", { message });
 });
 
 // ---------------- SERVER ----------------
+
 const port = process.env.PORT || 8080;
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
-
