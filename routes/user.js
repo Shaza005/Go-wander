@@ -10,7 +10,7 @@ const userController=require("../controllers/users.js")
 
 router.get("/signup",userController.renderSignupForm);
 
-router.post("/signup",wrapAsync(userController.signup));
+router.post("/signup",userController.signup);
 
 router.get("/login",userController.renderLoginForm);
 
