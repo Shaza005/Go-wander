@@ -26,9 +26,35 @@ module.exports.createReview = async (req, res) => {
         return res.redirect(`/listings/${listing._id}`);
     }
 
+    // ⭐ VALIDATION FIX (IMPORTANT)
+    const { rating, comment } = req.body.review;
+
+    let errorMsg = null;
+
+    if (!rating) {
+        errorMsg = "Please select a rating";
+    } else if (!comment || comment.trim() === "") {
+        errorMsg = "Please add a comment";
+    }
+
+    if (errorMsg) {
+        await listing.populate({
+            path: "reviews",
+            populate: { path: "author" }
+        });
+
+        return res.render("listings/show", {
+            listing,
+            errorMsg
+        });
+    }
+
     // ✅ CREATE REVIEW
-    const newReview = new Review(req.body.review);
-    newReview.author = req.user._id;
+    const newReview = new Review({
+        rating,
+        comment,
+        author: req.user._id
+    });
 
     await newReview.save();
 
@@ -38,26 +64,4 @@ module.exports.createReview = async (req, res) => {
 
     req.flash("success", "New review created!");
     res.redirect(`/listings/${listing._id}`);
-};
-
-
-module.exports.destroyReview = async (req, res) => {
-    let { id, reviewId } = req.params;
-
-    let listing = await Listing.findById(id);
-
-    if (!listing) {
-        req.flash("error", "Listing not found");
-        return res.redirect("/listings");
-    }
-
-    // remove review reference from listing
-    listing.reviews.pull(reviewId);
-    await listing.save();
-
-    // delete review document
-    await Review.findByIdAndDelete(reviewId);
-
-    req.flash("success", "Review deleted!");
-    res.redirect(`/listings/${id}`);
 };
