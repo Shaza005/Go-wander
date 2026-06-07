@@ -1,5 +1,10 @@
 <% layout("/layouts/boilerplate") %>
+
 <style>
+/* =========================
+   BASE (UNCHANGED STYLE)
+========================= */
+
 .filters{
   display:flex;
   flex-wrap:wrap;
@@ -12,11 +17,10 @@
   margin-top:0.8rem;
   opacity:0.8;
   color:#3636ab;
-
 }
 
 .filter:hover{
-  opacity:1;;
+  opacity:1;
   cursor:pointer;
 }
 
@@ -29,91 +33,198 @@
 }
 
 .tax-toggle{
-  border:1px solid black;
+  border:1.5px solid rgb(51, 35, 228);
   border-radius:1rem;
   height:3.25rem;
   padding:1rem;
-  margin-left:5rem;
   display:flex;
   align-items:center;
+  margin-bottom:1rem;
+}
+
+/* cards */
+.listing-card{
+  margin-bottom:2rem ;
+  border:none;
+}
+
+.card-img-top{
+  border-radius:1rem;
+  width:100%;
+  object-fit: cover;
+}
+
+.card-body{
+  padding:0;
+}
+
+.card a{
+  text-decoration: none !important;
+  color:#222222;
+}
+
+.card-text{
+  line-height:1.5rem;
+}
+
+.listing-link{
+  text-decoration: none;
+}
+
+/* overlay */
+.card-img-overlay{
+  opacity:0;
+}
+
+.card-img-overlay:hover{
+  opacity:0.1;
+  background-color: white;
+}
+
+/* =========================
+   🔥 RESPONSIVENESS ONLY
+========================= */
+
+/* GRID SAFETY */
+.row{
+  margin-left:0;
+  margin-right:0;
+}
+
+/* TABLET */
+@media (max-width: 768px){
+
+  .filters{
+    justify-content:center;
+    gap: 1rem;
+  }
+
+  .filter{
+    margin-right:1.5rem;
+  }
+
+ .tax-toggle{
+  border:1.5px solid rgb(51, 35, 228) ;
+  border-radius:1rem;
+  height:3.25rem;
+  padding:0 1rem;
+  display:flex;
+  align-items:center;
+  margin-top:0.8rem;
+  flex-shrink:0;
+  
+}
+
+
+  .card-img-top{
+    height: 180px !important;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px){
+
+  .filters{
+    justify-content:center;
+  }
+
+  .filter{
+    margin-right:1rem;
+  }
+
+  .filter p{
+    font-size:0.7rem;
+  }
+
+  .tax-toggle{
+    width:100%;
+    height:auto;
+    padding:0.7rem;
+  }
+
+  .card-img-top{
+    height: 160px !important;
+  }
+
+  .card-text{
+    font-size:0.9rem;
+  }
 }
 </style>
 
+<!-- FILTERS -->
 <div class="filters">
-  <div class="filter"><i class="fa-solid fa-fire"></i>
-  <p>Trending</p>
-  </div>
 
-   <div class="filter"><i class="fa-solid fa-mountain"></i>
-  <p>Mountain</p>
-  </div>
+  <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+  <div class="filter"><i class="fa-solid fa-mountain"></i><p>Mountain</p></div>
+  <div class="filter"><i class="fa-solid fa-snowflake"></i><p>Arctic</p></div>
+  <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Pools</p></div>
+  <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
+  <div class="filter"><i class="fa-solid fa-city"></i><p>Cities</p></div>
+  <div class="filter"><i class="fa-solid fa-cow"></i><p>Farms</p></div>
+  <div class="filter"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></div>
+  <div class="filter"><i class="fa-solid fa-campground"></i><p>Camping</p></div>
 
-  <div class="filter"><i class="fa-solid fa-snowflake"></i>
-  <p>Arctic</p>
-  </div>
-
-   <div class="filter"><i class="fa-solid fa-person-swimming"></i>
-  <p>Pools</p>
-  </div>
-
-   <div class="filter"><i class="fa-solid fa-bed"></i>
-  <p>Rooms</p>
-  </div>
-
-  <div class="filter"><i class="fa-solid fa-city"></i>
-  <p>Cities</p>
-  </div>
-
-  <div class="filter"><i class="fa-solid fa-cow"></i>
-  <p>Farms</p>
-  </div>
-
-   <div class="filter"><i class="fa-brands fa-fort-awesome"></i>
-  <p>Castles</p>
-  </div>
-
-  <div class="filter"><i class="fa-solid fa-campground"></i>
-  <p>Camping</p>
-  </div>
-  
-   <div class="tax-toggle">
+  <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
-  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-  <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">
+        Display total after taxes
+      </label>
+    </div>
   </div>
-   </div>
-  
-  
-</div>
-  
 
+</div>
+
+<!-- LISTINGS -->
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-<%for(let listing of allListings){%>
-<a href="/listings/<%=listing._id%>" class="listing-link">
-<div class="card col listing-card" >
-  <img src="<%=listing.image.url%>" class="card-img-top" alt="listing-image" style="height: 20rem">
-  <div class="card-img-overlay"></div>
-  <div class="card-body">
-    <p class="card-text"><b><%=listing.title%></b></p>
-    <p class="card-text"><%=listing.location%>, <%=listing.country%><br>
-    &#8377;<%=listing.price.toLocaleString("en-IN")%> /night
-    <i class="tax-info"> &nbsp;&nbsp;+18% GST</i></p>
-  </div>
-</div>
-</a>
-    <%}%>
+
+<% for(let listing of allListings){ %>
+
+  <a href="/listings/<%=listing._id%>" class="listing-link">
+
+    <div class="card col listing-card">
+
+      <img src="<%=listing.image.url%>"
+           class="card-img-top"
+           alt="listing-image"
+           style="height:20rem">
+
+      <div class="card-img-overlay"></div>
+
+      <div class="card-body">
+        <p class="card-text"><b><%=listing.title%></b></p>
+
+        <p class="card-text">
+          <%=listing.location%>, <%=listing.country%><br>
+
+          &#8377;<%=listing.price.toLocaleString("en-IN")%> /night
+
+          <i class="tax-info">&nbsp;&nbsp;+18% GST</i>
+        </p>
+      </div>
+
+    </div>
+
+  </a>
+
+<% } %>
+
 </div>
 
+<!-- TAX TOGGLE SCRIPT (UNCHANGED FUNCTIONALITY) -->
 <script>
-  let taxSwitch=document.getElementById("switchCheckDefault")
-  taxSwitch.addEventListener("click",()=>{
-    let taxInfo=document.getElementsByClassName("tax-info");
-    for(info of taxInfo){
-      if(info.style.display!="inline"){
-      info.style.display="inline";
-      }else{
-        info.style.display="none";
+  let taxSwitch = document.getElementById("switchCheckDefault");
+
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+
+    for (let info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
       }
     }
-  })
+  });
 </script>

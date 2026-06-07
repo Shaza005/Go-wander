@@ -1,27 +1,88 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-nav">
+
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings">G<i class="fa-solid fa-earth-americas"></i> <i class="fa-solid fa-plane"></i>Wander</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+    <a class="navbar-brand" href="/listings">
+      G<i class="fa-solid fa-earth-americas"></i>
+      <i class="fa-solid fa-plane"></i>
+      Wander
+    </a>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-     
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/add">Add New Listing</a>
-       <% if (typeof currUser === "undefined" || !currUser) { %>
 
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <div class="navbar-nav ms-auto">
+
+        <a class="nav-link" href="/listings/add">Add New Listing</a>
+
+        <% if (!currUser) { %>
           <a class="nav-link" href="/signup"><b>Sign up</b></a>
           <a class="nav-link" href="/login"><b>Log in</b></a>
-        
-        <%}%>
+        <% } %>
 
-        <% if (typeof currUser === "undefined" || currUser) { %>
+        <% if (currUser) { %>
+          <a class="nav-link" href="/logout"><b>Log out</b></a>
+        <% } %>
 
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        
-        <%}%>
-        
       </div>
+
     </div>
+
   </div>
+
 </nav>
+
+<style>
+
+/* =========================
+   RESPONSIVENESS ONLY
+========================= */
+
+/* NAVBAR FIX FOR SMALL SCREENS */
+@media (max-width: 768px){
+
+  .navbar-nav{
+    text-align:center;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link{
+    padding: 0.6rem 0;
+  }
+
+  .navbar-brand{
+    font-size:1.1rem;
+  }
+
+  .navbar-toggler{
+    border:none;
+    outline:none;
+  }
+}
+
+@media (max-width: 480px){
+
+  .navbar-brand{
+    font-size:1rem;
+  }
+
+  .nav-link{
+    font-size:0.95rem;
+  }
+
+  .container-fluid{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+</style>

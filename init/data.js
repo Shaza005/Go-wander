@@ -140,7 +140,7 @@ const sampleListings = [
       url: "https://images.unsplash.com/photo-1618140052121-39fc6db33972?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bG9kZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
     },
     price: 10000,
-    location: "Fiji",
+    location: "Nadi",
     country: "Fiji",
   },
   {

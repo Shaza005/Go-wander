@@ -1,6 +1,41 @@
 <% layout("/layouts/boilerplate") %>
+
+<style>
+
+/* =========================
+   RESPONSIVENESS ONLY
+========================= */
+
+@media (max-width: 768px){
+
+    .alert.col-6.offset-3{
+        width:100% !important;
+        margin-left:0 !important;
+    }
+
+    .alert{
+        margin: 1rem;
+        font-size: 1rem;
+        text-align:center;
+    }
+}
+
+@media (max-width: 480px){
+
+    .alert{
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+}
+
+</style>
+
 <div class="row mt-3">
-<div class="alert alert-danger col-6 offset-3" role="alert">
- <p><%=message%></p>
-</div>
+
+    <div class="alert alert-danger col-6 offset-3" role="alert">
+
+        <p class="mb-0"><%=message%></p>
+
+    </div>
+
 </div>

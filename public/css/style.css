@@ -1,22 +1,25 @@
- body{
+body{
     margin:0;
     padding:0;
     display:flex;
     flex-direction:column;
     min-height:100vh;
-   
-} 
+}
 
-
-
+/* MAIN CONTAINER */
 .container{
     flex:1;
+    padding: 0 1rem;
 }
-/* navbar */
+
+/* NAVBAR */
 .navbar{
     height:5rem;
     background-color: white;
     margin-bottom:0.7rem;
+    display:flex;
+    align-items:center;
+    padding: 0 1rem;
 }
 
 .fa-plane{
@@ -24,60 +27,61 @@
 }
 
 .fa-earth-americas{
-   color:#0000A0 ;
-   
-
+    color:#0000A0;
 }
 
 .navbar-brand{
     color:#4a4aef;
     font-weight:bold;
 }
+
 .nav-link{
     color:#1d539a !important;
     background-color: white;
     z-index:1;
 }
 
-/* footer */
+/* FOOTER */
+.f-info{
+    text-align:center;
+    min-height:8rem;
+    background-color:#ebebeb;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    margin-top:2rem;
+    padding: 1rem;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
 .f-info-links a{
     text-decoration: none;
     color:black;
-   
+    margin: 0.3rem;
 }
 
 .f-info-links a:hover{
-    text-decoration: underline;  
+    text-decoration: underline;
 }
-.f-info-links,.f-info-socials,.f-info-brand{
-    width:100%;
-    display:flex;
-    align-items: center;
-    justify-content:center;
-}
-
-
 
 .f-info-socials i{
     margin-right:1rem;
     font-size:1.2rem;
 }
 
-.f-info{
-    text-align:center;
-    height:8rem;
-    background-color:#ebebeb;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:space-evenly;
-    margin-top:2rem;
-    }
-
-/* cards */
+/* CARDS */
 .listing-card{
-    margin-bottom:2rem ;
+    margin-bottom:2rem;
     border:none;
 }
 
@@ -85,27 +89,30 @@
     border-radius:1rem;
     width:100%;
     object-fit: cover;
-    
+    height: 200px;
 }
+
 .card-body{
     padding:0;
 }
- .card a{
+
+.card a{
     text-decoration: none !important;
     color:#222222;
 }
 
 .card-text{
     line-height:1.5rem;
-} 
+}
 
 .listing-link{
     text-decoration: none;
 }
 
-/* card overlay effect */
+/* CARD HOVER OVERLAY */
 .card-img-overlay{
     opacity:0;
+    transition: 0.3s ease;
 }
 
 .card-img-overlay:hover{
@@ -113,19 +120,73 @@
     background-color: white;
 }
 
+/* BUTTONS */
 .add-btn,.edit-btn,.delete-btn{
-    background-color:#0000A0 ;
+    background-color:#0000A0;
     border:none !important;
 }
 
 .delete-btn{
     background-color: rgb(227, 21, 21);
-    border:none !important;
 }
 
-/* show page */
-
+/* SHOW PAGE */
 .show-img{
     height:30vh;
-    
+    width:100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+/* =========================
+   📱 MOBILE RESPONSIVE
+========================= */
+@media (max-width: 768px){
+
+    .navbar{
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        text-align:center;
+    }
+
+    .nav-link{
+        display:block;
+        padding: 0.5rem 0;
+    }
+
+    .card-img-top{
+        height: 180px;
+    }
+
+    .show-img{
+        height: 25vh;
+    }
+
+    .f-info-socials i{
+        font-size:1rem;
+        margin-right:0.6rem;
+    }
+}
+
+/* =========================
+   📱 SMALL MOBILE
+========================= */
+@media (max-width: 480px){
+
+    .container{
+        padding: 0 0.5rem;
+    }
+
+    .card-img-top{
+        height: 160px;
+    }
+
+    .navbar-brand{
+        font-size: 1rem;
+    }
+
+    .f-info{
+        font-size: 0.9rem;
+    }
 }

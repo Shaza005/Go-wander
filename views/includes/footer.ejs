@@ -1,20 +1,103 @@
-<footer >
-  
-    <div class="f-info ">
-        <div class="f-info-socials">
-            <i class="fa-brands fa-square-instagram"></i>
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-linkedin"></i>
+<footer>
 
-        </div>
-        <div class="f-info-brand">&copy Go-wander Private Limited</div>
-        <div class="f-info-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-        </div>
+  <div class="f-info">
 
-
-
+    <div class="f-info-socials">
+      <i class="fa-brands fa-square-instagram"></i>
+      <i class="fa-brands fa-square-facebook"></i>
+      <i class="fa-brands fa-linkedin"></i>
     </div>
 
+    <div class="f-info-brand">
+      &copy; Go-wander Private Limited
+    </div>
+
+    <div class="f-info-links">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+
+  </div>
+
 </footer>
+
+<style>
+
+/* =========================
+   BASE (light improvement only)
+========================= */
+
+.f-info{
+  text-align:center;
+  min-height:8rem;
+  background-color:#ebebeb;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  padding: 1rem;
+}
+
+.f-info-socials,
+.f-info-brand,
+.f-info-links{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.f-info-socials i{
+  margin-right:1rem;
+  font-size:1.2rem;
+}
+
+.f-info-links a{
+  text-decoration:none;
+  color:black;
+  margin: 0 0.5rem;
+}
+
+.f-info-links a:hover{
+  text-decoration:underline;
+}
+
+/* =========================
+   RESPONSIVENESS ONLY
+========================= */
+
+@media (max-width: 768px){
+
+  .f-info{
+    padding: 1rem 0.5rem;
+  }
+
+  .f-info-socials i{
+    font-size:1.1rem;
+    margin-right:0.8rem;
+  }
+
+  .f-info-brand{
+    font-size:0.95rem;
+  }
+}
+
+@media (max-width: 480px){
+
+  .f-info-socials i{
+    font-size:1rem;
+    margin-right:0.6rem;
+  }
+
+  .f-info-brand{
+    font-size:0.85rem;
+  }
+
+  .f-info-links a{
+    font-size:0.85rem;
+    margin: 0 0.3rem;
+  }
+}
+
+</style>

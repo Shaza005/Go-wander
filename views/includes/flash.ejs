@@ -1,13 +1,70 @@
 <% if(success && success.length){%>
-<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+
+<div class="alert alert-success alert-dismissible fade show col-6 offset-3 flash-msg"
+     role="alert">
+
   <%=success[0]%>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+  <button type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"></button>
+
 </div>
+
 <%}%>
 
+
 <% if(error && error.length){%>
-<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+
+<div class="alert alert-danger alert-dismissible fade show col-6 offset-3 flash-msg"
+     role="alert">
+
   <%=error[0]%>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+  <button type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"></button>
+
 </div>
+
 <%}%>
+
+<style>
+
+/* =========================
+   RESPONSIVENESS ONLY
+========================= */
+
+.flash-msg{
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px){
+
+    .alert.col-6.offset-3{
+        width:100% !important;
+        margin-left:0 !important;
+        margin-right:0 !important;
+    }
+
+    .flash-msg{
+        margin: 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px){
+
+    .flash-msg{
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+
+    .btn-close{
+        transform: scale(0.9);
+    }
+}
+
+</style>
